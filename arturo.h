@@ -159,12 +159,13 @@ class Arturo {
 	
 	struct Nodo {
 		Nodo(const T& c) 
-			: caballero(c), sig(NULL), ant(NULL) {
+			: caballero(c), sig(NULL), ant(NULL), esArturo(false) {
 		}
 			 
 		T caballero;
 		Nodo* sig;
 		Nodo* ant;
+    bool esArturo;
 	};
 	
 	int len;
@@ -191,10 +192,6 @@ Arturo<T>::Arturo(const Arturo<T>& otra)
 		incorporarCaballero(otra.iesimo(i));
 	}
 }
-
-template <typename T>
-void incorporarCaballero(const T& c) {
-}	
 
 template <typename T>
 T& Arturo<T>::iesimo(int i) {
@@ -254,4 +251,30 @@ void Arturo<T>::sentarArturo(const T& a) {
 	fin = nuevo;
 }
 
+template <typename T>
+bool Arturo<T>::arturoPresente() const {
+  esta = false;
+  Nodo* actual = prim;
+  int i = 0;
+  while (i < len && esta) {
+    if (actual->esArturo) {
+      esta = true;
+    }
+    else {
+      actual == actual->sig;
+    }
+    i++;
+  }
+  return esta;
+}
+
+
+template <typename T>
+void Arturo<T>::incorporarCaballero(const T& c) {
+  ASSERT(this->arturoPresente());
+//  ASSERT( c no es ningun caballero de this);
+  len++;
+  Nodo* nuevo = new Nodo(c);
+        
+}
 #endif //ARTURO_H_
